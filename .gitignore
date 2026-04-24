@@ -1,52 +1,161 @@
-# dependencies
+# ==================== DEPENDENCIES ====================
 /node_modules
 /.pnp
 .pnp.js
 
-# testing
+# ==================== ENVIRONMENT & SECRETS (CRITICAL) ====================
+# Never commit real env files - DevSecOps feedback
+.env
+.env.local
+.env.development
+.env.staging
+.env.production
+.env.test
+.env.*.local
+
+# Safe to commit (templates only)
+!.env.example
+!.env*.md
+
+# ==================== CREDENTIALS & KEYS ====================
+# AWS/GCP/Azure credentials
+.aws/
+.gcp/
+.azure/
+*.aws.json
+*.gcp.json
+*.azure.json
+
+# SSH & Certificates
+id_rsa*
+id_ed25519*
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cert
+*.pem
+
+# API Keys & Tokens (DevSecOps: scan before commit!)
+*.key
+*.token
+*.secret
+*_secret*
+*_key*
+*_token*
+
+# GitHub tokens
+ghp_*
+github_pat_*
+gho_*
+ghs_*
+
+# ==================== DATABASE ====================
+*.db
+*.sqlite
+*.sqlite3
+*.sql
+*.sql.gz
+db.sqlite
+prisma/migrations/
+
+# ==================== TESTING & COVERAGE ====================
 /coverage
 /playwright-report
+/playwright/.cache
 /test-results
 *.test.ts.snapshots
+*.coverage.*
 
-# next.js
+# ==================== BUILD OUTPUT ====================
+# Next.js
 /.next/
 /out/
+/next-env.d.ts
 
-# production
+# Turbo
+.turbo/
+
+# General build
 /build
+/dist
+/out
 
-# misc
-.DS_Store
-*.pem
+# ==================== LOGS ====================
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+*.log.*
 
-# local env files (CRITICAL - DevSecOps feedback!)
-.env*.local
-.env*.production
-.env.development
-.env.staging
-
-# vercel
+# ==================== NEXT.JS SPECIFIC ====================
+# Vercel
 .vercel
 
-# typescript
+# ==================== TYPESCRIPT ====================
 *.tsbuildinfo
 next-env.d.ts
+*.d.ts
 
-# prisma
-db.sqlite
-*.db
+# ==================== PRISMA ====================
+prisma/migrations/
 
-# IDE
+# ==================== IDE & EDITORS ====================
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+.cursor/
+.cursor/
 
-# OS
+# ==================== OS FILES ====================
+.DS_Store
 Thumbs.db
+desktop.ini
+*.bak
+*.backup
+*.tmp
+*.temp
+
+# ==================== MISC ====================
+# Large media files (if not using Git LFS)
+# *.mp4
+# *.zip
+# *.tar.gz
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# ==================== SECURITY SCANS (DevSecOps) ====================
+# TruffleHog
+.trufflehog*
+
+# GitLeaks
+.gitleaks*
+
+# Detect-secrets
+.detect-secrets*
+
+# ==================== SENSITIVE PATTERNS ====================
+# These patterns should NEVER be committed
+# Passwords, API keys, tokens in any file
+# *password*
+# *secret*
+# *token*
+# *apikey*
+# *api_key*
+
+# ==================== USER-SPECIFIC (Security Risk!) ====================
+# Askpass helper - contains sudo password!
+# DEVSECOPS RECOMMENDATION: Remove or use SSH keys instead
+# ~/.askpass should NOT be in repo, but check if accidentally added:
+# This pattern is for reference - don't uncomment:
+# askpass
+# *.askpass

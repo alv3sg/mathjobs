@@ -1,0 +1,58 @@
+# Pre-commit hooks for security scanning
+# DevSecOps Agent recommendations - April 24, 2026
+
+repos:
+  # TruffleHog - Secret detection
+  - repo: https://github.com/trufflesecurity/trufflehog
+    rev: v3.63.0
+    hooks:
+      - id: trufflehog
+        name: "TruffleHog - Secret Detection"
+        description: "Detect secrets, API keys, and credentials"
+        args: [--fail, --regex, --entropy=False]
+        exclude: package-lock.json
+
+  # GitLeaks - Another secret scanner
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.0
+    hooks:
+      - id: gitleaks
+        name: "GitLeaks - Secret Scan"
+        description: "Scan for hardcoded secrets"
+        args: ["detect", "--source=.", "--verbose", "--redact"]
+
+  # detect-secrets - Secret detection
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        name: "detect-secrets - Find secrets"
+        args: [--baseline, .secrets.baseline]
+
+  # Pre-commit-hooks - General quality
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: forbid-new-submodules
+
+  # ESLint for JavaScript/TypeScript
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.56.0
+    hooks:
+      - id: eslint
+        files: \.(js|jsx|ts|tsx)$
+        types: [file]
+        exclude: package-lock.json
+
+# Install pre-commit:
+# pip install pre-commit
+# pre-commit install
+
+# Run manually:
+# pre-commit run --all-files
